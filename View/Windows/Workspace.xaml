@@ -10,7 +10,4 @@
     <Window.DataContext>
         <base:WorkSpaceWindowViewModel/>
     </Window.DataContext>
-    <Grid>
-        
-    </Grid>
 </Window>

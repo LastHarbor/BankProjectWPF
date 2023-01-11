@@ -10,7 +10,6 @@ namespace BankApp.ViewModels.Base
             get => _sEmploye;
             set
             {
-               
                 SetField(ref _sEmploye, _sEmploye =value);
             }
         }

@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:base="clr-namespace:BankApp.ViewModels.Base"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800">
     <Window.DataContext>
         <base:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Canvas>
-        <Button Content="Войти" Canvas.Left="362" Canvas.Top="217" Command="{Binding OpenNewWindowCommand}"/>
+    <Canvas Background="Teal">
+        <Button Content="Войти" 
+                Canvas.Left="362" 
+                Canvas.Top="217" 
+                Command="{Binding OpenNewWindowCommand}"/>
         <ComboBox Name="UsersComboBox" 
                   Canvas.Left="322" 
                   Canvas.Top="165" 
