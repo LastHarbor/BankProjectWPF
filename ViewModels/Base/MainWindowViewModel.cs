@@ -1,7 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using BankApp.Infrastructure.Commands;
 using BankApp.Models;
 using BankApp.View.Windows;
@@ -10,6 +14,9 @@ namespace BankApp.ViewModels.Base
 {
     public class MainWindowViewModel : ViewModel
     {
+        #region OtherProperties
+
+        #endregion
         #region Title
 
         private string _title = "Банк";
@@ -21,45 +28,63 @@ namespace BankApp.ViewModels.Base
         }
 
         #endregion
-        #region OpenNewWindowCommand
-        public ICommand OpenNewWindowCommand { get; }
-
-        private void OnOpenNewWindowCommandExecute(object p)
-        {
-            Workspace ws = new Workspace();
-            ws.Show();
-            Application.Current.MainWindow?.Close();
-        }
-
-        private bool CanOpenNewWindowCommandExecute(object p) => true;
-
-        #endregion 
-
         #region ComboBoxItems
-        private ObservableCollection<string> _Employes;
-        private static string sEmploye;
-
-        public ObservableCollection<string> Employes
+        
+        public static ObservableCollection<string> Employes
         {
-            get => _Employes;
-            set => _Employes = value;
+            get;
+            set;
         }
         public static string SEmploye
         {
-            get => sEmploye;
-            set => sEmploye = value;
+            get;
+            set;
         }
-
 
         #endregion
 
+        #region OpenWorkSpaceWindowCommand
+        public ICommand OpenDialogsCommand { get; }
+        private void OnOpenDialogsCommandCommand(object p)
+        {
+            Workspace workspace = new Workspace();
+            string path ="..\\..\\..\\Data\\Database.json";
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("Первый запуск");
+                File.Create(path);
+                Application.Current.MainWindow?.Close();
+                SetCenterPositionAndOpen(workspace);
+            }
+            else
+            {
+                Application.Current.MainWindow?.Close();
+                SetCenterPositionAndOpen(workspace);
+            }
+        }
+        private bool CanOpenDialogsCommandCommand(object p) => true;
+
+        #endregion
         #region Commands
 
         public MainWindowViewModel()
         {
-            OpenNewWindowCommand = new LambdaCommand(OnOpenNewWindowCommandExecute, CanOpenNewWindowCommandExecute);
+            OpenDialogsCommand = new LambdaCommand(OnOpenDialogsCommandCommand, CanOpenDialogsCommandCommand);
             Employes = new ObservableCollection<string>() { "Менеджер", "Консультант" };
         }
         #endregion
+        private void SetRedBlockControll(Window wnd, string blockName)
+        {
+            Control block = wnd.FindName(blockName) as Control;
+            block.BorderBrush = Brushes.Red;
+        }
+        private void SetCenterPositionAndOpen(Window window)
+        {
+            window.Owner = Application.Current.MainWindow;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
+        }
+
+        
     }
 }

@@ -11,19 +11,19 @@
     </Window.DataContext>
 
     <Canvas Background="Teal">
-        <Button Content="Войти" 
-                Canvas.Left="362" 
-                Canvas.Top="217" 
-                Command="{Binding OpenNewWindowCommand}"/>
+        <Button  Background="BlueViolet"  Content="Войти"
+                Canvas.Left="355" 
+                Canvas.Top="238" 
+                Command="{Binding OpenDialogsCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90"/>
         <ComboBox Name="UsersComboBox" 
-                  Canvas.Left="322" 
-                  Canvas.Top="165" 
+                  Canvas.Left="327" 
+                  Canvas.Top="192" 
                   Width="145" 
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding Employes}"
                   SelectedItem="{Binding SEmploye, UpdateSourceTrigger=PropertyChanged}"
-                  IsSynchronizedWithCurrentItem="True">
-           
+                  IsSynchronizedWithCurrentItem="True" VerticalAlignment="Top">
+
         </ComboBox>
 
     </Canvas>

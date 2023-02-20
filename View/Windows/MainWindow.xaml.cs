@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 
 namespace BankApp
 {
@@ -10,7 +12,6 @@ namespace BankApp
         public MainWindow()
         {
             InitializeComponent();
-            
         }
     }
 }

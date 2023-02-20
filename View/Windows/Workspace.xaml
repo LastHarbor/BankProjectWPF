@@ -4,10 +4,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankApp.View.Windows"
-        xmlns:base ="clr-namespace:BankApp.ViewModels.Base"
+        xmlns:base="clr-namespace:BankApp.ViewModels.Base"
+        xmlns:self ="clr-namespace:BankApp.Models"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Path=Title}" Height="450" Width="800">
     <Window.DataContext>
         <base:WorkSpaceWindowViewModel/>
     </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть"></MenuItem>
+                <MenuItem Header="Сохранить как"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Действия">
+                <MenuItem Header="Добавить клиента"
+                          Command="{Binding AddClientWindowCommand}"></MenuItem>
+                <MenuItem Header="Добавить департамент" Command="{Binding AddDepartmentCommand}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Департаменты"
+                      Command="{Binding ShowDepartmentsCommand}"></MenuItem>
+            <MenuItem Header="Пользователи"></MenuItem>
+        </Menu>
+        <Button DockPanel.Dock="Bottom" 
+                        Content="Обновить данные" 
+                        Command="{Binding RefreshDataCommand}"/>
+        <ListView DockPanel.Dock="Bottom"
+                     SelectedItem="{Binding SelectedClient}"
+                     Name="ClientsView"
+                     ItemsSource="{Binding Clients}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID"
+                                       DisplayMemberBinding="{Binding ClientID}"></GridViewColumn>
+                    <GridViewColumn Header="Имя"
+                                       DisplayMemberBinding="{Binding ClientName}"></GridViewColumn>
+                    <GridViewColumn Header="Фамилия"
+                                       DisplayMemberBinding="{Binding ClientLastName}"></GridViewColumn>
+                    <GridViewColumn Header="Отчество"
+                                       DisplayMemberBinding="{Binding ClientPatronimyc}"></GridViewColumn>
+                    <GridViewColumn Header="Номер телефона"
+                                       DisplayMemberBinding="{Binding ClientMobileNumber}"></GridViewColumn>
+                    <GridViewColumn Header="Паспорт"
+                                       DisplayMemberBinding="{Binding ClientPassport}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DockPanel.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Редактировать" Command="{Binding }"/>
+                <MenuItem Header="Удалить" Command="{Binding }"/>
+            </ContextMenu>
+        </DockPanel.ContextMenu>
+    </DockPanel>
+    
 </Window>
